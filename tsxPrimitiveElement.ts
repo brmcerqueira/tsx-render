@@ -1,5 +1,6 @@
-import { NodePropsType, NullableChildType } from "../types.ts";
-import { FragmentNode } from "./fragmentNode.ts";
+import { TsxElement } from "./tsxElement.ts";
+import { TsxFragmentElement } from "./tsxFragmentElement.ts";
+import { TsxProperties } from "./types.ts";
 
 const voidElements = new Set<string>([
     "area",
@@ -20,20 +21,16 @@ const voidElements = new Set<string>([
     "wbr",
 ]);
 
-export class ElementNode extends FragmentNode<NullableChildType> {
-    constructor(
-        public name: string,
-        public props: NodePropsType,
-        children: NullableChildType[],
-    ) {
-        super(children);
+export class TsxPrimitiveElement extends TsxFragmentElement {
+    constructor(private name: string, properties: TsxProperties, children: TsxElement[]) {
+        super(properties, children);
     }
 
     public async render(): Promise<string> {
-        let renderedProps = "";
+        let renderedProperties = "";
 
-        const keys = Object.keys(this.props).filter(key => {
-            const value = this.props[key];
+        const keys = Object.keys(this.properties).filter(key => {
+            const value = this.properties[key];
             return (
                 typeof value === "string" ||
                 typeof value === "number" ||
@@ -44,21 +41,19 @@ export class ElementNode extends FragmentNode<NullableChildType> {
                 throw new Error(`Invalid attribute name format ${key}`);
             }
 
-            const value = this.props[key];
+            const value = this.properties[key];
             return value === true || value === "" ? key : 
-            `${key}="${this.doubleQuoteEncode(value.toString())}"`;
+            `${key}="${value.toString().replace(/"/g, "&quot;")}"`;
         });
 
         if (keys.length > 0) {
-            renderedProps = ` ${keys.join(" ")}`;
+            renderedProperties = ` ${keys.join(" ")}`;
         }
 
         const renderedChildren = await super.render();
 
         return renderedChildren || !voidElements.has(this.name)
-            ? `<${this.name}${renderedProps}>${renderedChildren || ""}</${
-                  this.name
-              }>`
-            : `<${this.name}${renderedProps} />`;
+            ? `<${this.name}${renderedProperties}>${renderedChildren || ""}</${this.name}>`
+            : `<${this.name}${renderedProperties} />`;
     }
 }

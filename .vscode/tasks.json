@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [{
+        "label": "Test",
+        "type": "shell",
+        "command": "deno test -c tsconfig.json",
+        "options": {
+            "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        }
+    }]
+}

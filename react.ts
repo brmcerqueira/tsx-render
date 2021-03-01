@@ -1,24 +1,25 @@
-import { ComponentNode } from "./node/componentNode.ts";
-import { ElementNode } from "./node/elementNode.ts";
-import { Fragment } from "./fragment.ts";
-import { NodePropsType,ComponentFunctionType,NullableChildType } from "./types.ts";
+import { TsxElement } from "./tsxElement.ts";
+import { TsxFragmentElement } from "./tsxFragmentElement.ts";
+import { TsxFunctionElement } from "./tsxFunctionElement.ts";
+import { TsxPrimitiveElement } from "./tsxPrimitiveElement.ts";
+import { TsxProperties, TsxFunction } from "./types.ts";
+
+export const Fragment = (properties: TsxProperties, ...children: TsxElement[]): TsxElement => {
+    return new TsxFragmentElement(properties, children);
+};
 
 export const React = {
     Fragment,
-    createElement<P extends NodePropsType = NodePropsType>(
-        element: string | ComponentFunctionType,
-        props: P | null,
-        ...children: NullableChildType[]
-    ) {
-        const nodeProps = props || {};
+    createElement<T extends TsxProperties>(template: string | TsxFunction, properties: T | null, ...children: TsxElement[]): TsxElement {
+        const props = properties || {};
 
-        if (typeof element === "string") {
-            return new ElementNode(element, nodeProps, children);
+        if (typeof template === "string") {
+            return new TsxPrimitiveElement(template, props, children);
         }
-        if (typeof element === "function") {
-            return new ComponentNode(element, nodeProps, children);
+        else if (typeof template === "function") {
+            return new TsxFunctionElement(template, props, children);
         }
     
-        throw new TypeError(`Expected jsx element to be a string or a function`);
-    },
+        throw new TypeError(`Expected tsx template to be a string or a function`);
+    }
 };
