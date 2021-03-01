@@ -1,5 +1,5 @@
 import { TsxFragmentElement } from "./tsxFragmentElement.ts";
-import { TsxElement, TsxProperties } from "./types.ts";
+import { TsxElement, TsxProperties } from "../types.ts";
 
 const voidElements = new Set<string>([
     "area",

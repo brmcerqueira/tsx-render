@@ -1,4 +1,4 @@
-import { TsxComplexElement } from "./tsxComplexElement.ts";
+import { TsxComplexElement } from "./elements/tsxComplexElement.ts";
 
 export type TsxElement = TsxComplexElement | TsxComplexElement[] | string | number;
 

@@ -1,5 +1,5 @@
 import { TsxComplexElement } from "./tsxComplexElement.ts";
-import { TsxElement, TsxProperties } from "./types.ts";
+import { TsxElement, TsxProperties } from "../types.ts";
 
 export class TsxFragmentElement extends TsxComplexElement {
     constructor(properties: TsxProperties, children: TsxElement[]) { 

@@ -1,7 +1,7 @@
-import { TsxComplexElement } from "./tsxComplexElement.ts";
-import { TsxFragmentElement } from "./tsxFragmentElement.ts";
-import { TsxFunctionElement } from "./tsxFunctionElement.ts";
-import { TsxPrimitiveElement } from "./tsxPrimitiveElement.ts";
+import { TsxComplexElement } from "./elements/tsxComplexElement.ts";
+import { TsxFragmentElement } from "./elements/tsxFragmentElement.ts";
+import { TsxFunctionElement } from "./elements/tsxFunctionElement.ts";
+import { TsxPrimitiveElement } from "./elements/tsxPrimitiveElement.ts";
 import { TsxProperties, TsxFunction, TsxElement } from "./types.ts";
 
 export const Fragment = (properties: TsxProperties, ...children: TsxElement[]): TsxComplexElement => {
