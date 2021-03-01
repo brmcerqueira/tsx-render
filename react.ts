@@ -1,16 +1,16 @@
-import { TsxElement } from "./tsxElement.ts";
+import { TsxComplexElement } from "./tsxComplexElement.ts";
 import { TsxFragmentElement } from "./tsxFragmentElement.ts";
 import { TsxFunctionElement } from "./tsxFunctionElement.ts";
 import { TsxPrimitiveElement } from "./tsxPrimitiveElement.ts";
-import { TsxProperties, TsxFunction } from "./types.ts";
+import { TsxProperties, TsxFunction, TsxElement } from "./types.ts";
 
-export const Fragment = (properties: TsxProperties, ...children: TsxElement[]): TsxElement => {
+export const Fragment = (properties: TsxProperties, ...children: TsxElement[]): TsxComplexElement => {
     return new TsxFragmentElement(properties, children);
 };
 
 export const React = {
     Fragment,
-    createElement<T extends TsxProperties>(template: string | TsxFunction, properties: T | null, ...children: TsxElement[]): TsxElement {
+    createElement<T extends TsxProperties>(template: string | TsxFunction, properties: T | null, ...children: TsxElement[]): TsxComplexElement {
         const props = properties || {};
 
         if (typeof template === "string") {

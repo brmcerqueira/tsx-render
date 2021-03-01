@@ -1,7 +1,9 @@
-import { TsxElement } from "./tsxElement.ts";
+import { TsxComplexElement } from "./tsxComplexElement.ts";
+
+export type TsxElement = TsxComplexElement | TsxComplexElement[] | string | number;
 
 export type TsxProperties = {
     [key: string]: any;
 };
 
-export type TsxFunction = (properties: TsxProperties, children?: TsxElement[]) => TsxElement | Promise<TsxElement>
+export type TsxFunction = (properties: TsxProperties, children?: TsxElement[]) => TsxComplexElement | Promise<TsxComplexElement>

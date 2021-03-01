@@ -1,26 +1,26 @@
-import { TsxElement } from "./tsxElement.ts";
-import { TsxProperties } from "./types.ts";
+import { TsxComplexElement } from "./tsxComplexElement.ts";
+import { TsxElement, TsxProperties } from "./types.ts";
 
-export class TsxFragmentElement extends TsxElement {
-    constructor(properties: TsxProperties, children: TsxElement[]) {
-        super(properties, children);
+export class TsxFragmentElement extends TsxComplexElement {
+    constructor(properties: TsxProperties, children: TsxElement[]) { 
+        super(properties, children); 
     }
 
     public async render(): Promise<string> {
-        return this.treatElements(this.children);
+        return this.renderChildren(this.children);
     }
 
-    private async treatElements(elements: TsxElement[]): Promise<string> {
+    private async renderChildren(elements: TsxElement[]): Promise<string> {
         let result = "";
 
         for (const child of elements) {
             if (Array.isArray(child)) {
-                result += await this.treatElements(child);
+                result += await this.renderChildren(child);
             }
-            else if (child instanceof TsxElement) {
+            else if (child instanceof TsxComplexElement) {
                 result += await child.render();
             }
-            else if (child !== null && child !== undefined) {
+            else if (typeof child === "string" || typeof child === "number") {
                 result += child;
             }
         }

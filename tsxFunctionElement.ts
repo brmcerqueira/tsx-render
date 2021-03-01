@@ -1,7 +1,7 @@
-import { TsxElement } from "./tsxElement.ts";
-import { TsxFunction, TsxProperties } from "./types.ts";
+import { TsxComplexElement } from "./tsxComplexElement.ts";
+import { TsxElement, TsxFunction, TsxProperties } from "./types.ts";
 
-export class TsxFunctionElement extends TsxElement {
+export class TsxFunctionElement extends TsxComplexElement {
     constructor(private tsxFunction: TsxFunction, properties: TsxProperties, children: TsxElement[]) {
         super(properties, children); 
     }
