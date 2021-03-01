@@ -20,7 +20,7 @@ export class TsxFragmentElement extends TsxElement {
             else if (child instanceof TsxElement) {
                 result += await child.render();
             }
-            else {
+            else if (child !== null && child !== undefined) {
                 result += child;
             }
         }
