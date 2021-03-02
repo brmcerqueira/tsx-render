@@ -3,10 +3,6 @@ import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 import React, { TsxComplexElement, TsxComponent, TsxElement, TsxProperties } from "../mod.ts";
 
 class TestComponent extends TsxComponent {
-    constructor(properties: TsxProperties, children: TsxElement[]) {
-        super(properties, children)    
-    }
-
     public async render(): Promise<TsxComplexElement> {
         return <h2>TestComponent! {this.properties.plus && <h1>{this.properties.plus}</h1>}
         {this.children}

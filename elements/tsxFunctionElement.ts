@@ -14,7 +14,12 @@ export class TsxFunctionElement extends TsxComplexElement {
         let element: TsxComplexElement;
 
         if (this.isConstructor(this.tsxFunction)) {
-            element = await new this.tsxFunction(this.properties, this.children).render();
+            const component = new this.tsxFunction();
+            Object.assign(component, {
+                _properties: this.properties,
+                _children: this.children,
+            });
+            element = await component.render();
         } else {
             element = await this.tsxFunction(this.properties, this.children);
         }
