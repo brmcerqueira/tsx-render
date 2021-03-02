@@ -7,6 +7,7 @@ export class TsxFragmentElement extends TsxComplexElement {
     }
 
     public async render(): Promise<string> {
+        this.initBag();
         return this.renderChildren(this.children);
     }
 
@@ -18,7 +19,6 @@ export class TsxFragmentElement extends TsxComplexElement {
                 result += await this.renderChildren(child);
             }
             else if (child instanceof TsxComplexElement) {
-                child.print();
                 result += await child.render();
             }
             else if (typeof child === "string" || typeof child === "number") {

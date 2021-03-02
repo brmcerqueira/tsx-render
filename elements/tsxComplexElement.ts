@@ -1,17 +1,12 @@
+import { BagWrapper } from "../bagWrapper.ts";
 import { TsxElement, TsxProperties } from "../types.ts";
-
-let index = 1;
-let indexBag = 1;
 
 export abstract class TsxComplexElement { 
     
-    private bagWrapper?: {
-        index: number,
-        bag?: TsxProperties
-    };
+    private bagWrapper?: BagWrapper;
     
     constructor(protected properties: TsxProperties, protected children: TsxElement[]) {
-        this.adjustBag(this.children);         
+        this.adjustBag(this.children);       
     }
 
     private adjustBag(elements: TsxElement[]) {
@@ -32,34 +27,29 @@ export abstract class TsxComplexElement {
                     this.bagWrapper = child.bagWrapper;               
                 }
                 else {
-                    this.bagWrapper = {
-                        index: indexBag++
-                    };
+                    this.initBagWrapper();                  
                     child.bagWrapper = this.bagWrapper;
                 }
             }     
         }
     }
 
-    public print() {
-        console.log("bagWrapper: ", this.bagWrapper); 
+    private initBagWrapper() {
+        if (this.bagWrapper === undefined) {
+            this.bagWrapper = new BagWrapper();
+        }
+    }
+
+    protected initBag() {
+        if (this.bagWrapper !== undefined) {
+            this.bagWrapper.init();
+        }
     }
 
     public get bag(): TsxProperties {
-        if (this.bagWrapper === undefined) {
-            this.bagWrapper = {
-                index: indexBag++
-            };
-        }
-
-        if (this.bagWrapper.bag === undefined) {
-            const i = index++;
-            this.bagWrapper.bag = {
-                index: i
-            };
-        } 
-
-        return this.bagWrapper.bag;
+        this.initBagWrapper();
+        this.initBag();       
+        return <TsxProperties> this.bagWrapper?.bag;
     }
 
     public abstract render(): Promise<string>

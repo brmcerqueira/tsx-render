@@ -10,15 +10,16 @@ export class TsxFunctionElement extends TsxComplexElement {
         return func.prototype && func.prototype.constructor;
     } 
 
-    public async render(): Promise<string> { 
+    public async render(): Promise<string> {
+        this.initBag(); 
         let element: TsxComplexElement;
 
-        if (this.isConstructor(this.tsxFunction)) {
+        if (this.isConstructor(this.tsxFunction)) {  
             element = await new this.tsxFunction(this.properties, this.children, this.bag).render();
         } else {
             element = await this.tsxFunction(this.properties, this.children, this.bag);
         }
-        element.print();
+
         return element.render();
     }
 }
