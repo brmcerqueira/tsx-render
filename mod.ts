@@ -1,6 +1,6 @@
 import { React } from "./react.ts";
 
-export { TsxComplexElement } from "./elements/tsxComplexElement.ts";
+export { TsxComponent } from "./tsxComponent.ts";
 export { TsxFragmentElement } from "./elements/tsxFragmentElement.ts";
 export { TsxFunctionElement } from "./elements/tsxFunctionElement.ts";
 export { TsxPrimitiveElement } from "./elements/tsxPrimitiveElement.ts";
