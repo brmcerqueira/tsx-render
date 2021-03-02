@@ -8,7 +8,7 @@ export type TsxProperties = {
 };
 
 export type TsxConstructor = {
-    new(properties: TsxProperties, children?: TsxElement[]): TsxComponent;
+    new(properties: TsxProperties, children?: TsxElement[], bag?: TsxProperties): TsxComponent;
 };
 
-export type TsxFunction = TsxConstructor | ((properties: TsxProperties, children?: TsxElement[]) => TsxComplexElement | Promise<TsxComplexElement>);
+export type TsxFunction = TsxConstructor | ((properties: TsxProperties, children?: TsxElement[], bag?: TsxProperties) => TsxComplexElement | Promise<TsxComplexElement>);

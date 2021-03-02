@@ -3,7 +3,7 @@ import { TsxComplexElement } from "./tsxComplexElement.ts";
 
 export class TsxFragmentElement extends TsxComplexElement {
     constructor(properties: TsxProperties, children: TsxElement[]) { 
-        super(properties, children); 
+        super(properties, children);
     }
 
     public async render(): Promise<string> {
@@ -18,11 +18,12 @@ export class TsxFragmentElement extends TsxComplexElement {
                 result += await this.renderChildren(child);
             }
             else if (child instanceof TsxComplexElement) {
+                child.print();
                 result += await child.render();
             }
             else if (typeof child === "string" || typeof child === "number") {
                 result += child;
-            }
+            }       
         }
 
         return result;
