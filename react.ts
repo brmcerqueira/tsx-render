@@ -10,7 +10,7 @@ export const Fragment = (properties: TsxProperties, ...children: TsxElement[]): 
 
 export const React = {
     Fragment,
-    createElement<T extends TsxProperties>(template: string | TsxFunction | TsxConstructor, properties: T | null, ...children: TsxElement[]): TsxComplexElement {
+    createElement<T extends TsxProperties = TsxProperties>(template: string | TsxFunction | TsxConstructor, properties: T | null, ...children: TsxElement[]): TsxComplexElement {
         const props = properties || {};
 
         if (typeof template === "string") {
