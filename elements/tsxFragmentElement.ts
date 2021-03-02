@@ -1,7 +1,7 @@
-import { TsxComponent } from "../tsxComponent.ts";
 import { TsxElement, TsxProperties } from "../types.ts";
+import { TsxComplexElement } from "./tsxComplexElement.ts";
 
-export class TsxFragmentElement extends TsxComponent {
+export class TsxFragmentElement extends TsxComplexElement {
     constructor(properties: TsxProperties, children: TsxElement[]) { 
         super(properties, children); 
     }
@@ -17,7 +17,7 @@ export class TsxFragmentElement extends TsxComponent {
             if (Array.isArray(child)) {
                 result += await this.renderChildren(child);
             }
-            else if (child instanceof TsxComponent) {
+            else if (child instanceof TsxComplexElement) {
                 result += await child.render();
             }
             else if (typeof child === "string" || typeof child === "number") {
