@@ -1,7 +1,7 @@
 import { BagWrapper } from "../bagWrapper.ts";
 import { TsxElement, TsxProperties } from "../types.ts";
 
-export abstract class TsxComplexElement { 
+export abstract class TsxComplexElement<T extends TsxProperties = TsxProperties> { 
     
     private bagWrapper?: BagWrapper;
     
@@ -46,10 +46,10 @@ export abstract class TsxComplexElement {
         }
     }
 
-    public get bag(): TsxProperties {
+    public get bag(): T {
         this.initBagWrapper();
         this.initBag();       
-        return <TsxProperties> this.bagWrapper?.bag;
+        return <T> this.bagWrapper?.bag;
     }
 
     public abstract render(): Promise<string>

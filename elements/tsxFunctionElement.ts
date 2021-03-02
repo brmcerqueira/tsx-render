@@ -2,11 +2,11 @@ import { TsxConstructor, TsxElement, TsxFunction, TsxProperties } from "../types
 import { TsxComplexElement } from "./tsxComplexElement.ts";
 
 export class TsxFunctionElement extends TsxComplexElement {
-    constructor(private tsxFunction: TsxFunction, properties: TsxProperties, children: TsxElement[]) {
+    constructor(private tsxFunction: TsxFunction<TsxProperties>, properties: TsxProperties, children: TsxElement[]) {
         super(properties, children); 
     }
 
-    private isConstructor(func: TsxFunction): func is TsxConstructor {
+    private isConstructor(func: TsxFunction<TsxProperties>): func is TsxConstructor<TsxProperties> {
         return func.prototype && func.prototype.constructor;
     } 
 
