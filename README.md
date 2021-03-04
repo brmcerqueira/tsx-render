@@ -1,2 +1,2 @@
 # tsx-render
-A TSX render.
+A Deno TSX render.
