@@ -3,7 +3,7 @@
     "tasks": [{
         "label": "Test",
         "type": "shell",
-        "command": "deno test -c tsconfig.json",
+        "command": "deno test",
         "options": {
             "cwd": "${workspaceFolder}"
         },

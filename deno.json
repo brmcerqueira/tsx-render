@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "plugins": [
+        {
+          "name": "typescript-deno-plugin",
+          "enable": true
+        }
+      ],
+      "jsx": "react",
+      "jsxFactory": "React.createElement",
+      "jsxFragmentFactory": "React.Fragment"
+    }
+  }

@@ -1,5 +1,4 @@
-/// <reference path="../jsx.d.ts" />
-import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.212.0/assert/mod.ts";
 import React, { TsxComplexElement, TsxComponent, TsxElement, TsxProperties } from "../mod.ts";
 
 class TestComponent extends TsxComponent {
