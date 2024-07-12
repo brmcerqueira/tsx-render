@@ -1,10 +1,10 @@
 import { TsxBaseElement } from "./elements/tsxBaseElement.ts";
-import { TsxContext, TsxElement, TsxProperties } from "./types.ts";
+import { TsxElement, TsxProperties } from "./types.ts";
 
-export abstract class TsxComponent<T extends TsxProperties = TsxProperties, TContext extends TsxContext = TsxContext> {
+export abstract class TsxComponent<T extends TsxProperties = TsxProperties, TContext = any | undefined> {
     private _properties: T | null = null; 
     private _children: TsxElement[] | undefined;
-    private _context: TsxContext;
+    private _context: TContext | undefined;
 
     protected get properties(): T {
         return <T> this._properties;
@@ -14,8 +14,8 @@ export abstract class TsxComponent<T extends TsxProperties = TsxProperties, TCon
         return this._children;
     }
 
-    protected get context(): TContext {
-        return <TContext> this._context;
+    protected get context(): TContext | undefined {
+        return this._context;
     }
 
     public abstract define(): Promise<TsxBaseElement>

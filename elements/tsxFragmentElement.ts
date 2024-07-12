@@ -1,15 +1,15 @@
-import { TsxContext, TsxElement, TsxProperties } from "../types.ts";
+import { TsxSetup, TsxElement, TsxProperties } from "../types.ts";
 import { TsxBaseElement } from "./tsxBaseElement.ts";
 
 export class TsxFragmentElement extends TsxBaseElement {
-    private _context: TsxContext; 
+    private _setup: TsxSetup; 
 
     constructor(properties: TsxProperties, children: TsxElement[]) { 
         super(properties, children); 
     }
 
-    public async render(context?: TsxContext): Promise<string> {
-        this._context = context;
+    public async render(setup?: TsxSetup): Promise<string> {
+        this._setup = setup;
         return this.renderChildren(this.children);
     }
 
@@ -21,7 +21,7 @@ export class TsxFragmentElement extends TsxBaseElement {
                 result += await this.renderChildren(child);
             }
             else if (child instanceof TsxBaseElement) {
-                result += await child.render(this._context);
+                result += await child.render(this._setup);
             }
             else if (typeof child === "string" || typeof child === "number") {
                 result += child;

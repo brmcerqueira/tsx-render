@@ -27,6 +27,6 @@ Deno.test("react", async () => {
             </TestComponent>
         </h1>;
 
-    const value = await view.render({ data: "test" });
+    const value = await view.render({ context: { data: "test" }});
     assertEquals(value, "<h1><h2>TestComponent! <h1>1</h1><h2>TestView! </h2><h1>Context: test</h1><div><h1>Hello!</h1></div><h1>1</h1></h2></h1>");
 });

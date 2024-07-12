@@ -1,7 +1,10 @@
 import { TsxBaseElement } from "./elements/tsxBaseElement.ts";
 import { TsxComponent } from "./tsxComponent.ts";
 
-export type TsxContext = any | undefined;
+export type TsxSetup = {
+    context?: any,
+    wrapper?: (element: TsxElement, component?: TsxComponent, properties?: TsxProperties, context?: any) => TsxBaseElement | Promise<TsxBaseElement>
+} | undefined;
 
 export type TsxElement = TsxBaseElement | TsxBaseElement[] | string | number;
 
@@ -13,4 +16,4 @@ export type TsxConstructor = {
     new(): TsxComponent;
 };
 
-export type TsxFunction = TsxConstructor | ((properties?: TsxProperties, children?: TsxElement[], context?: TsxContext) => TsxBaseElement | Promise<TsxBaseElement>);
+export type TsxComplex = TsxConstructor | ((properties?: TsxProperties, children?: TsxElement[], context?: any) => TsxBaseElement | Promise<TsxBaseElement>);
