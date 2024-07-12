@@ -28,13 +28,7 @@ export class TsxPrimitiveElement extends TsxFragmentElement {
     public async render(setup?: TsxSetup): Promise<string> {
         let renderedProperties = "";
 
-        for (const key of Object.keys(this.properties)) {
-            const value = this.properties[key];
-
-            if (setup?.primitivePropertyTreat && await setup.primitivePropertyTreat(name, key, value, this.properties, setup?.context)) {
-                continue;
-            }
-
+        function property(key: string, value: any): void {
             if (typeof value === "string" || typeof value === "number" || value === true) {
                 if (!/^[a-zA-Z0-9-:\._]+$/.test(key)) {
                     throw new Error(`Invalid attribute name format ${key}`);
@@ -43,6 +37,16 @@ export class TsxPrimitiveElement extends TsxFragmentElement {
                 renderedProperties += value === true || value === "" ? key 
                 : ` ${key}="${value.toString().replace(/"/g, "&quot;")}"`;
             }
+        }
+
+        for (const key of Object.keys(this.properties)) {
+            const value = this.properties[key];
+
+            if (setup?.primitivePropertyTreat && await setup.primitivePropertyTreat(name, key, value, this.properties, property, setup?.context)) {
+                continue;
+            }
+
+            property(key, value);
         }
 
         const renderedChildren = await super.render(setup);

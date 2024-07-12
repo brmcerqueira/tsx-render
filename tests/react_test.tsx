@@ -29,9 +29,11 @@ Deno.test("react", async () => {
 
     const value = await view.render({ 
         context: { data: "test" },
-        primitivePropertyTreat: (name: string, key: string, value: any, properties: TsxProperties, context?: any): boolean | Promise<boolean> => {
+        primitivePropertyTreat: (name: string, key: string, value: any, properties: TsxProperties, 
+            property: (key: string, value: any) => void, context?: any): boolean | Promise<boolean> => {
             if (key.startsWith("$")) {
                 console.log(name, key, value, properties, context);
+                property("id", 10);
                 return true;
             }
 
@@ -42,5 +44,5 @@ Deno.test("react", async () => {
         }
     });
 
-    assertEquals(value, "<h1><div>wrapper: <h2>TestComponent! <h1>1</h1><div>wrapper: <div>wrapper: <h2>TestView! </h2><h1>Context: test</h1><div><h1>Hello!</h1></div></div></div><h1>1</h1></h2></div></h1>");
+    assertEquals(value, '<h1><div>wrapper: <h2>TestComponent! <h1>1</h1><div>wrapper: <div>wrapper: <h2>TestView! </h2><h1>Context: test</h1><div><h1 id="10">Hello!</h1></div></div></div><h1>1</h1></h2></div></h1>');
 });
