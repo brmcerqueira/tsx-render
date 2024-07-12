@@ -3,6 +3,7 @@ import { TsxComponent } from "./tsxComponent.ts";
 
 export type TsxSetup = {
     context?: any,
+    primitivePropertyTreat?: (name: string, key: string, value: any, properties: TsxProperties, context?: any) => boolean | Promise<boolean>
     wrapper?: (element: TsxElement, component?: TsxComponent, properties?: TsxProperties, context?: any) => TsxBaseElement | Promise<TsxBaseElement>
 } | undefined;
 

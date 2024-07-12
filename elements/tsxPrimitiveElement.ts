@@ -28,25 +28,21 @@ export class TsxPrimitiveElement extends TsxFragmentElement {
     public async render(setup?: TsxSetup): Promise<string> {
         let renderedProperties = "";
 
-        const keys = Object.keys(this.properties).filter(key => {
+        for (const key of Object.keys(this.properties)) {
             const value = this.properties[key];
-            return (
-                typeof value === "string" ||
-                typeof value === "number" ||
-                value === true
-            );
-        }).map(key => {
-            if (!/^[a-zA-Z0-9-:\._]+$/.test(key)) {
-                throw new Error(`Invalid attribute name format ${key}`);
+
+            if (setup?.primitivePropertyTreat && await setup.primitivePropertyTreat(name, key, value, this.properties, setup?.context)) {
+                continue;
             }
 
-            const value = this.properties[key];
-            return value === true || value === "" ? key : 
-            `${key}="${value.toString().replace(/"/g, "&quot;")}"`;
-        });
+            if (typeof value === "string" || typeof value === "number" || value === true) {
+                if (!/^[a-zA-Z0-9-:\._]+$/.test(key)) {
+                    throw new Error(`Invalid attribute name format ${key}`);
+                }
 
-        if (keys.length > 0) {
-            renderedProperties = ` ${keys.join(" ")}`;
+                renderedProperties += value === true || value === "" ? key 
+                : ` ${key}="${value.toString().replace(/"/g, "&quot;")}"`;
+            }
         }
 
         const renderedChildren = await super.render(setup);
