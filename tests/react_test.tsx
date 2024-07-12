@@ -39,7 +39,7 @@ Deno.test("react", async () => {
 
             return false;
         },
-        wrapper: (element: TsxElement, component?: TsxComponent, properties?: TsxProperties, context?: any): TsxBaseElement | Promise<TsxBaseElement> => {
+        wrapper: (element: TsxElement, context?: any, component?: TsxComponent, properties?: TsxProperties): TsxBaseElement | Promise<TsxBaseElement> => {
             return <div>wrapper: {element}</div>
         }
     });

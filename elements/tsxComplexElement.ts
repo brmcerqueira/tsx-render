@@ -32,7 +32,7 @@ export class TsxComplexElement extends TsxBaseElement {
         }
 
         if (setup?.wrapper) {
-            element = await setup.wrapper(element, component, this.properties, context)
+            element = await setup.wrapper(element, context, component, this.properties);
         }
 
         return element.render(setup);
