@@ -1,5 +1,5 @@
 import { TsxFragmentElement } from "./tsxFragmentElement.ts";
-import { TsxElement, TsxProperties } from "../types.ts";
+import { TsxContext, TsxElement, TsxProperties } from "../types.ts";
 
 const voidElements = new Set<string>([
     "area",
@@ -25,7 +25,7 @@ export class TsxPrimitiveElement extends TsxFragmentElement {
         super(properties, children);
     }
 
-    public async render(): Promise<string> {
+    public async render(context?: TsxContext): Promise<string> {
         let renderedProperties = "";
 
         const keys = Object.keys(this.properties).filter(key => {
@@ -49,7 +49,7 @@ export class TsxPrimitiveElement extends TsxFragmentElement {
             renderedProperties = ` ${keys.join(" ")}`;
         }
 
-        const renderedChildren = await super.render();
+        const renderedChildren = await super.render(context);
 
         return renderedChildren || !voidElements.has(this.name)
             ? `<${this.name}${renderedProperties}>${renderedChildren || ""}</${this.name}>`
