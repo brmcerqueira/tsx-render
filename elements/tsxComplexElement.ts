@@ -25,13 +25,13 @@ export class TsxComplexElement extends TsxBaseElement {
             Object.assign(component, {
                 _properties: this.properties,
                 _children: this.children,
-                _context: context
+                _setup: setup
             });
             build = async () => await (component as TsxComponent).define();
         } 
         else {
             
-            build = () => complex(this.properties, this.children, context);
+            build = () => complex(this.properties, this.children, setup?.context);
         }
 
         let element: TsxBaseElement;
