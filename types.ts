@@ -1,11 +1,11 @@
 import { TsxBaseElement } from "./elements/tsxBaseElement.ts";
 import { TsxComponent } from "./tsxComponent.ts";
 
-export type TsxSetup = {
-    context?: any,
+export type TsxSetup<T = any> = {
+    context?: T,
     primitivePropertyTreat?: (name: string, key: string, value: any, properties: TsxProperties, 
-        property: (key: string, value: any) => void, setup?: TsxSetup) => boolean | Promise<boolean>
-    wrapper?: (render: () => TsxBaseElement | Promise<TsxBaseElement>, setup?: TsxSetup, component?: TsxComponent, properties?: TsxProperties) => TsxBaseElement | Promise<TsxBaseElement>
+        property: (key: string, value: any) => void, setup: TsxSetup) => boolean | Promise<boolean>
+    wrapper?: (render: () => TsxBaseElement | Promise<TsxBaseElement>, setup: TsxSetup, component?: TsxComponent, properties?: TsxProperties) => TsxBaseElement | Promise<TsxBaseElement>
 } | undefined;
 
 export type TsxElement = TsxBaseElement | TsxBaseElement[] | string | number;
