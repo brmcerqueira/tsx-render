@@ -16,7 +16,7 @@ export class TsxComplexElement extends TsxBaseElement {
 
         let component: TsxComponent | undefined = undefined;
 
-        let renderElement: (() => TsxBaseElement | Promise<TsxBaseElement>) | undefined = undefined;
+        let build: (() => TsxBaseElement | Promise<TsxBaseElement>) | undefined = undefined;
 
         const complex = this.tsxComplex;
 
@@ -27,20 +27,20 @@ export class TsxComplexElement extends TsxBaseElement {
                 _children: this.children,
                 _context: context
             });
-            renderElement = async () => await (component as TsxComponent).define();
+            build = async () => await (component as TsxComponent).define();
         } 
         else {
             
-            renderElement = () => complex(this.properties, this.children, context);
+            build = () => complex(this.properties, this.children, context);
         }
 
         let element: TsxBaseElement;
 
         if (setup?.wrapper) {
-            element = await setup.wrapper(renderElement, setup, component, this.properties);
+            element = await setup.wrapper(build, setup, component, this.properties);
         }
         else {
-            element = await renderElement();
+            element = await build();
         }
 
         return element.render(setup);

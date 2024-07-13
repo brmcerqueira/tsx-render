@@ -2,7 +2,7 @@ import { TsxSetup, TsxElement, TsxProperties } from "../types.ts";
 import { TsxBaseElement } from "./tsxBaseElement.ts";
 
 export class TsxFragmentElement extends TsxBaseElement {
-    private _setup: TsxSetup; 
+    private _setup: TsxSetup | undefined; 
 
     constructor(properties: TsxProperties, children: TsxElement[]) { 
         super(properties, children); 
