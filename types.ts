@@ -5,7 +5,7 @@ export type TsxSetup = {
     context?: any,
     primitivePropertyTreat?: (name: string, key: string, value: any, properties: TsxProperties, 
         property: (key: string, value: any) => void, setup?: TsxSetup) => boolean | Promise<boolean>
-    wrapper?: (build: () => TsxBaseElement | Promise<TsxBaseElement>, setup?: TsxSetup, component?: TsxComponent, properties?: TsxProperties) => TsxBaseElement | Promise<TsxBaseElement>
+    wrapper?: (render: () => TsxBaseElement | Promise<TsxBaseElement>, setup?: TsxSetup, component?: TsxComponent, properties?: TsxProperties) => TsxBaseElement | Promise<TsxBaseElement>
 } | undefined;
 
 export type TsxElement = TsxBaseElement | TsxBaseElement[] | string | number;
