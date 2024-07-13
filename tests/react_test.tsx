@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.212.0/assert/mod.ts";
-import React, { TsxBaseElement, TsxComponent, TsxElement, TsxProperties } from "../mod.ts";
+import React, { TsxBaseElement, TsxComponent, TsxElement, TsxProperties, TsxSetup } from "../mod.ts";
 
 type TestProperties = { plus?: string }
 type TestContext = { data: string }
@@ -30,17 +30,17 @@ Deno.test("react", async () => {
     const value = await view.render({ 
         context: { data: "test" },
         primitivePropertyTreat: (name: string, key: string, value: any, properties: TsxProperties, 
-            property: (key: string, value: any) => void, context?: any): boolean | Promise<boolean> => {
+            property: (key: string, value: any) => void, setup?: TsxSetup): boolean | Promise<boolean> => {
             if (key.startsWith("$")) {
-                console.log(name, key, value, properties, context);
+                console.log(name, key, value, properties);
                 property("id", 10);
                 return true;
             }
 
             return false;
         },
-        wrapper: (element: TsxElement, context?: any, component?: TsxComponent, properties?: TsxProperties): TsxBaseElement | Promise<TsxBaseElement> => {
-            return <div>wrapper: {element}</div>
+        wrapper: async (render: () => TsxBaseElement | Promise<TsxBaseElement>, setup?: TsxSetup, component?: TsxComponent, properties?: TsxProperties): Promise<TsxBaseElement> => {
+            return <div>wrapper: {await render()}</div>
         }
     });
 

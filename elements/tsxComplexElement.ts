@@ -14,25 +14,33 @@ export class TsxComplexElement extends TsxBaseElement {
     public async render(setup?: TsxSetup): Promise<string> { 
         const context = setup?.context;
 
-        let element: TsxBaseElement;
-
         let component: TsxComponent | undefined = undefined;
 
-        if (this.isConstructor(this.tsxComplex)) {
-            component = new this.tsxComplex();
+        let renderElement: (() => TsxBaseElement | Promise<TsxBaseElement>) | undefined = undefined;
+
+        const complex = this.tsxComplex;
+
+        if (this.isConstructor(complex)) {
+            component = new complex();
             Object.assign(component, {
                 _properties: this.properties,
                 _children: this.children,
                 _context: context
             });
-            element = await component.define();
+            renderElement = async () => await (component as TsxComponent).define();
         } 
         else {
-            element = await this.tsxComplex(this.properties, this.children, context);
+            
+            renderElement = () => complex(this.properties, this.children, context);
         }
 
+        let element: TsxBaseElement;
+
         if (setup?.wrapper) {
-            element = await setup.wrapper(element, context, component, this.properties);
+            element = await setup.wrapper(renderElement, setup, component, this.properties);
+        }
+        else {
+            element = await renderElement();
         }
 
         return element.render(setup);

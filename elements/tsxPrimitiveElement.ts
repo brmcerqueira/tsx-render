@@ -42,7 +42,7 @@ export class TsxPrimitiveElement extends TsxFragmentElement {
         for (const key of Object.keys(this.properties)) {
             const value = this.properties[key];
 
-            if (setup?.primitivePropertyTreat && await setup.primitivePropertyTreat(name, key, value, this.properties, property, setup?.context)) {
+            if (setup?.primitivePropertyTreat && await setup.primitivePropertyTreat(name, key, value, this.properties, property, setup)) {
                 continue;
             }
 
