@@ -12,8 +12,6 @@ export class TsxComplexElement extends TsxBaseElement {
     } 
 
     public async render(setup?: TsxSetup): Promise<string> { 
-        const context = setup?.context;
-
         let component: TsxComponent | undefined = undefined;
 
         let build: (() => TsxBaseElement | Promise<TsxBaseElement>) | undefined = undefined;
